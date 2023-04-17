@@ -1,8 +1,14 @@
-import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  Animated,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { useMovement } from "./Behavior";
 
-const AnimatedEntity = ({ entity, touchPos, style, highlight }) => {
+const AnimatedEntity = ({ entity, touchPos, style, highlight, image }) => {
   const [pos, setPos, active, setActive] = useMovement(entity, touchPos);
 
   const xPos = React.useRef(new Animated.Value(100)).current;
@@ -36,7 +42,11 @@ const AnimatedEntity = ({ entity, touchPos, style, highlight }) => {
             ...style,
             backgroundColor: active ? highlight : style.backgroundColor,
           }}
-        ></View>
+        >
+          {image && (
+            <Image style={{ width: "100%", height: "100%" }} source={image} />
+          )}
+        </View>
       </TouchableOpacity>
     </Animated.View>
   );
